@@ -1,10 +1,9 @@
 Wave wave_1;
-//Wave wave_2;
-int number_wave_point = 1;
+Wave wave_2;
+int number_wave_point = 2;
 int size = 500; 
 int point_regulation = 4;
 float[][] point = new float[size/point_regulation][size/point_regulation];
-int count = 0;
 
 
 void setup(){  
@@ -13,7 +12,7 @@ void setup(){
   frameRate(3);
   //strokeWeight(point_regulation);
   wave_1 = new Wave(200,250,1000.0,40.0);
-  //wave_2 = new Wave(400,250,1000.0,40.0);
+  wave_2 = new Wave(400,250,1000.0,40.0);
 }
 
 
@@ -27,9 +26,10 @@ void draw(){
       float y = wave_1.now_displacement_y(distance,wave_1.lambda, wave_1.period);
       point[i][j] += y+number_wave_point;
       
-      //distance = wave_2.distance_calculate(i*point_regulation,j*point_regulation);
-      //y = wave_2.now_displacement_y(distance,wave_2.lambda,wave_2.period);
-      //point[i][j] += y; 
+      distance = wave_2.distance_calculate(i*point_regulation,j*point_regulation);
+      y = wave_2.now_displacement_y(distance,wave_2.lambda,wave_2.period);
+      point[i][j] += y; 
+      //println(color_regulation);
       
       
       //stroke(color_regulation*64,0,360 - color_regulation*64);
@@ -43,7 +43,7 @@ void draw(){
   stroke(300,100,100);
   strokeWeight(20);
   point(wave_1.center_x, wave_1.center_y);
-  //point(wave_2.center_x, wave_2.center_y);
+  point(wave_2.center_x, wave_2.center_y);
 
 }
 
