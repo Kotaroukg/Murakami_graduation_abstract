@@ -1,0 +1,108 @@
+
+
+\chapter{視覚化}
+物理現象を数式から理解するのは困難である．視覚化を行うことによって理解の促進に繋がると考えられる．本章では視覚化に用いるプログラミング言語について記述する．
+\section{Processing}
+Processingはグラフィック機能に特化したオープンソースのプログラミング言語である．文法はJavaによく似ており，デフォルトでスケッチブックが用意されていて容易に図の描画を行う事ができる．
+また，ProcessingにはJavaScriptへの自動変換機能が備わっていて，Processingで作成したプログラムをWeb上で動作させる事が可能になる．この自動変換には問題点があり本研究で明らかになったものは\ref{sec:problem}節に記す．
+
+\section{JavaScript}
+JavaScriptは動的なWebページを作成するために開発されたプログラミング言語である．Javaと名前が似ているが両者は全く別のものである．
+HTML内にJavaScriptのプログラムを埋め込むことにより，Web上でそのプログラムを動かすことが可能である．
+
+\section{変換の問題点}\label{sec:problem}
+本研究で明らかになったProcessingからJavaScriptへの変換により生じる問題点を以下に記す．
+
+\subsection{ライブラリの使用}
+ライブラリとは便利なパーツのようなものであり，Processingには最初から備わっている公式のライブラリと，インストールすることで利用することができるライブラリがある．
+それらはプログラム中で宣言することで容易に利用することができる．本研究のプログラムではスライダー部分にControlP5というスライダーやボタンなどのGUIパーツのライブラリを利用していた．
+しかし，ライブラリを利用したプログラムではJavaScriptへの変換後正しく動作しない事が明らかになった．解決策として今回はスライダー部分を自分で実装することにした．スライダーの実装については\ref{sec:slider}節に記す ．
+\subsection{関数名と変数名が同じ}
+関数名と変数名が同じ場合，JavaScriptへの変換後，正しく動作しない．例えば以下のようなプログラムがある．
+\begin{screen}
+{\small
+\begin{verbatim}
+void same_name(){
+  println(0);
+}
+
+void setup(){
+ int same_name;
+ same_name();
+ println(1);  
+}
+\end{verbatim}}
+\end{screen}
+このプログラムにはsame\_nameという名前の変数と関数が使われている．これを実行するとProcessingでは01と出力され，JavaScriptでは出力なしという結果になる．
+
+\subsection{JavaScriptの変数型}
+Processingは整数のint型変数,浮動小数点のfloat型変数と分けているが，JavaScriptの変数にはそれらの型の概念がなくどちらも同じ変数として扱われる．例えば以下のようなプログラムがある．
+\begin{screen}
+{\small
+\begin{verbatim}
+void setup(){
+  int integer;
+  integer = 3/2;
+  println(integer); 
+}
+\end{verbatim}}
+\end{screen}
+このプログラムはint型変数intergerに1.5が代入され，intergerの中身を出力する．Processingではint型のため1と出力されるが，JavaScriptでは1.5と出力される．
+これはJavaScriptの変数にint型がないことが原因であり，解決策として代入部分を以下のように書けばよい．
+\begin{screen}
+{\small
+\begin{verbatim}
+integer = (int)(3/2);
+\end{verbatim}}
+\end{screen}
+このように代入する値をint型にすればJavaScriptでも1と出力され，Processingと揃えることができる．このような値のずれは気付くのが困難なため注意が必要である．
+
+\subsection{translateによる座標の移動}
+mousePressedやkeyPressedなどの強制的に呼び出される関数内でtranslateを行うと座標のずれが生じる．例えば以下のようなプログラムがある．
+
+\begin{screen}
+{\small
+\begin{verbatim}
+void setup(){
+  size(500,500);
+}
+
+void mousePressed(){
+  translate(10,10);
+  ellipse(130,130,10,10);
+}
+
+void draw(){
+  background(255);
+  fill(0);
+  ellipse(100,100,10,10);
+}
+\end{verbatim}}
+\end{screen}
+このプログラムは座標(100,100)に常に黒い円があり，クリックするたびに座標(140,140)に黒い円が一瞬描かれるというものである．
+JavaScriptへの変換後はクリックするたびに常に描かれている黒い円が座標(10,10)ずつずれていく．解決策として関数mousePressed内を以下のように書き換えればよい．
+\begin{screen}
+{\small
+\begin{verbatim}
+void mousePressed(){
+  translate(10,10);
+  ellipse(130,130,10,10);
+  translate(-10,-10);
+}
+\end{verbatim}}
+\end{screen}
+このように関数の最後でtranslate(-10,-10)を実行し関数内でtranslateで移動させた座標を戻すことによってJavaScriptの動作をProcessingと一致させることができる．
+
+
+
+
+
+
+
+
+
+
+
+
+
+
