@@ -1,3 +1,29 @@
+% 
+% 文書の構成
+% 序論    [1]問う       目的(introduction)      自分の研究で明らかにしたい問いを示します．
+%         [2]調べる     先行研究(introduction)  関連する先行研究を紹介し，本研究のオリジナリティを示します．
+%         [3]選ぶ       資料と方法(Material and Method)  問いを明らかに検証するためのデータの概要と方法を示します．
+% 本論    [4]確かめる   結果と分析(Results)     分析を経た調査の結果を示し,問いに答えます．    
+%         [5]裏付ける   考察(Discussion)        なぜそのような結果になるのか，その理由を考えます．
+% 結論    [6]まとめる   結論(Conclusion)         [1]〜[5]の論証のプロセスを要約し，今後の課題を示します．
+%
+% IMRAD, イントロ，方法，結果，議論，理系の学術論文
+% 方法：物理学的基礎知識，Processing
+% 開発結果
+% ソフトの振る舞い，ソフト試行錯誤の過程
+% 
+
+% outputの時の判断基準
+% 先行研究，資料と方法：あるもんしらべた
+% 結果と分析：ないもんをつくった
+%
+% ruby_noviceの簡単な使用法を書く
+% 開発したソフトの振る舞い(使用法)を記述することによって，
+% どのようなソフトかを読む人が理解できるように
+% だから，何が必要かというのを
+% divide and quanquar:各個撃破
+% プレゼンの極意：むずいとこはあっさりと，易しいとこをこってりと
+
 %スタイル，パッケージの設定
 \documentclass[12pt,a4]{jreport}%chapterが使えるスタイル
 \usepackage[dvipdfmx]{graphicx}%図の挿入のためのパッケージ
@@ -50,8 +76,10 @@
 \tableofcontents
 
 %本文
+%\abel{chap:intro}
+%\label{fig:....}
 \input{../intro/intro}%序論
-\input{../background/background}%物理的背景
+\input{../background/background}%物理学的基礎知識
 %\input{../method/method}%視覚化
 \input{../result/result}%結果
 \input{../implement/implement}%実装
