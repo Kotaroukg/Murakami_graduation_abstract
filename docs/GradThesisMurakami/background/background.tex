@@ -1,15 +1,138 @@
-\chapter{物理学的背景}
-\section{波の要素}
-正弦波の図を作成して,振幅,波長,振幅の説明を行う.
-\section{波の速度と振動数と周期の関係}
-参考書P103のような手法で波の速さv,振動数f,周期Tの関係を説明する. v=fλなど.
-\section{点源とは異なる座標の点における変位の計算方法}
-プログラム内で用いた方法を説明する.
 
-\section{波の独立性}
+
+\chapter{物理学的基礎知識}
+\section{波の要素}
+ある点での振動が他の点へと伝わっていく現象を波という.
+波を伝える物質を媒質といい,振動によって最初に波が起きた点を波源という.
+
+図\ref{fig:sin}は最も基本的な波である正弦波である.波形の中で最も高い所を山,最も低い所を谷という.隣り合う山同士,谷同士の間の距離を波長λ[$m$]という.波源から山の高さ,もしくは谷の深さを波の振幅という.
+
+
+
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics[width=150mm]{../background/lambdasin.png}
+ \end{center}
+ \caption{波の振幅,波長を示した図.}
+ \label{fig:sin}
+\end{figure}
+
+\newpage
+
+\section{波の速度と振動数と周期の関係}
+1波長分の波が1秒間に発生する回数を振動数$f$[$m$]という.
+波の速さ$v$[$m$]は式(\ref{eq:v})と表すことができる.
+\begin{eqnarray}
+\label{eq:v}
+v=fλ
+\end{eqnarray}
+
+図\ref{fig:vft}は波の速さ$v$と振動数$f$の関係を示した図である.
+\begin{figure}[htbp]
+\begin{minipage}[b]{1.0\linewidth}
+\centering
+\includegraphics[keepaspectratio, scale=0.42]
+  {../background/tminute2.png}
+ \subcaption{t秒の時の波.}\label{tminute}
+ \end{minipage}
+ 
+\begin{minipage}[b]{1.0\linewidth}
+\centering
+  \includegraphics[keepaspectratio, scale=0.42]
+  {../background/t+1minute2.png}
+ \subcaption{t+1秒の時の波.}\label{t+1minute}
+ \end{minipage}
+  
+  \caption{波の速さv,振動数fの関係を示した図.}
+ \label{fig:vft}
+\end{figure}
+
+また1波長分の波が発生するまでに要する時間を周期$T$という.
+周期$T$と振動数$f$には式(\ref{eq:t})の関係が成り立つ.
+\begin{eqnarray}
+\label{eq:t}
+T = \frac{1}{f}
+\end{eqnarray}
+
+
+\section{ある地点における正弦波の変位の計算方法}
+ある地点における正弦波の変位を計算する際には,以下に挙げる要素が必要である.
+\begin{enumerate}
+ \item 波源からの距離
+ \item 波長
+ \item 現在の時間と波源が生成された時間との差
+ \end{enumerate}
+全ての要素を同時に考慮することは難しいので,1-2の要素と3の要素を分けた上で正弦波の変位の計算方法を説明する.
+
+図\ref{fig:dislam}(a)は,ある地点aの変位y\_aと,波源から地点aまでの距離を表したものである.波源から目標地点(点a)までの距離をd1とする.
+図\ref{fig:dislam}(b)は\ref{fig:dislam}(a)の距離d1を波長$λ$で割った余りを距離d2とし,波源から距離d2分離れた場所を地点bとして表したものである.
+
+
+
+
+\begin{figure}[htbp]
+
+\begin{minipage}[b]{1.0\linewidth}
+\centering
+  \includegraphics[keepaspectratio, scale=0.45]
+  {../background/dislam1.png}
+ \subcaption{2つの波が重なっている時.}\label{dislam1}
+ \end{minipage}
+  
+  \begin{minipage}[b]{1.0\linewidth}
+\centering
+  \includegraphics[keepaspectratio, scale=0.45]
+  {../background/dislam2.png}
+ \subcaption{2つの波が重なった後.}\label{dislam2}
+ \end{minipage}
+  
+  \caption{波源からの距離と波長の値から,ある地点での波の変位を計算する方法.}
+ \label{fig:dislam}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\section{波の独立性と重ね合わせの原理}
 教科書P188参考書P104の手法で説明する.
-\section{重ね合わせの原理}
-教科書P188,参考書P105の手法で説明する.
+
+
+\begin{figure}[htbp]
+\begin{minipage}[b]{1.0\linewidth}
+\centering
+\includegraphics[keepaspectratio, scale=0.45]
+  {../background/synwave1.png}
+ \subcaption{2つの波が重なる前.}\label{synwave1}
+ \end{minipage}
+ 
+\begin{minipage}[b]{1.0\linewidth}
+\centering
+  \includegraphics[keepaspectratio, scale=0.45]
+  {../background/synwave2.png}
+ \subcaption{2つの波が重なっている時.}\label{synwave2}
+ \end{minipage}
+  
+  \begin{minipage}[b]{1.0\linewidth}
+\centering
+  \includegraphics[keepaspectratio, scale=0.45]
+  {../background/synwave3.png}
+ \subcaption{2つの波が重なった後.}\label{synwave3}
+ \end{minipage}
+  
+  \caption{波の独立性と重ねあわせの原理.}
+ \label{fig:synwave}
+\end{figure}
+
+
+
+
 \section{反射の法則}
 \section{屈折の法則}
 \section{回折現象}

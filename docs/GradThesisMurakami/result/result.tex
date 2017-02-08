@@ -1,4 +1,4 @@
-\chapter{結果}
+\chapter{開発結果}
 本章では，波の各性質をプログラムによって視覚化した実行結果を記述する．いずれのプログラムもJavaScriptへ変換可能であり,Webブラウザ上で動作させることが可能である.
 
 \section{円形波の位相変位を視覚化したプログラム}
@@ -65,7 +65,7 @@ Lキー(lambdaの頭文字)を押すと,図\ref{fig:wavechangelambda}のよう�
 
 \newpage
 \subsection{checkモード}
-このモードはdrawモードに描写されている赤い線上の位相変位をリアルタイムに視覚化するモードである.同時刻,同座標で周期,波長が同一な波を生成し,波を生成して360フレーム目の状態をdrawモード,checkモードでそれぞれ描写したのが図\ref{fig:compare}(\subref{drawmode}),(\subref{checkmode})である.（ほんまに一致しているか先生に見てもらう）
+このモードはdrawモードに描写されている赤い線上の位相変位をリアルタイムに視覚化するモードである.同時刻,同座標で周期,波長が同一な波を生成し,波を生成して360フレーム目の状態をdrawモード,checkモードでそれぞれ描写したのが図\ref{fig:compare}(\subref{drawmode}),(\subref{checkmode})である.
 
 
 \begin{figure}[htbp]
@@ -91,13 +91,50 @@ Lキー(lambdaの頭文字)を押すと,図\ref{fig:wavechangelambda}のよう�
 
 \newpage
 \section{波の回折現象を視覚化したプログラム}
+図\ref{fig:start}はある一定の間隔で配置された6つの波源から生成される円形波によって,波の回折現象の視覚化を行うプログラムである.
+
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics[width=\linewidth]{../result/diffractionstart.png}
+ \end{center}
+ \caption{回折現象視覚化プログラムの起動画面．}
+ \label{fig:start}
+\end{figure}
+
+
+
+プログラムを起動すると図\ref{fig:start}の画面になる.
+この画面では画面右にあるスライダーで波源の間隔の値を調節できる.波源の間隔の値はスライダー下部に表示されている.波源の間隔の値に応じて画面左の6つの点が移動する.この時の点が波を生成する際の波源の間隔となる.
+図\ref{fig:start}の画面でSキー(Startの頭文字)を押すと,図\ref{fig:incident}の画面へと切り替わる.
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics[width=130mm]{../result/diffractionincident.png}
+ \end{center}
+ \caption{入射波.}
+ \label{fig:incident}
+\end{figure}
+
+
+図\ref{fig:incident}の画面は画面下部から平行に進行してきた入射波が波源に到達すると,図\ref{fig:elementary}のように円形波が生成され,波長に応じた挙動を描写する.
+
+
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics[width=130mm]{../result/diffractionelementary.png}
+ \end{center}
+ \caption{回折現象.}
+ \label{fig:elementary}
+\end{figure}
+
+
+
+
+
 \section{波の反射を視覚化したプログラム}
 出来なかった理由はプログラム解説の章で解説していいのか？
+
+
 \section{波の屈折を視覚化したプログラム}
-
-
-
-
 
 
 
