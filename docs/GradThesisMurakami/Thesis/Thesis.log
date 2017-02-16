@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.9.5)  8 FEB 2017 18:44
+This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.9.5)  15 FEB 2017 15:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -200,7 +200,16 @@ ax \par \fi \else \global \@minipagefalse \hbox to\hsize {\hfil \box \@tempboxa
 )
 \c@subfigure=\count106
 \c@subtable=\count107
-) (/usr/local/texlive/2016/texmf-dist/tex/latex/comment/comment.sty
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/here/here.sty)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count108
+\float@exts=\toks22
+\float@box=\box50
+\@float@everytoks=\toks23
+\@floatcapt=\box51
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
 
 Excluding comment 'comment')
@@ -208,32 +217,37 @@ Excluding comment 'comment')
 LaTeX Warning: Unused global option(s):
     [a4].
 
-(./Thesis.aux)
+(./Thesis.aux
+
+LaTeX Warning: Label `eq:refraction5' multiply defined.
+
+)
 \openout1 = `Thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 68.
+LaTeX Font Info:    Try loading font information for U+msa on input line 71.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 68.
+LaTeX Font Info:    Try loading font information for U+msb on input line 71.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -247,9 +261,9 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
  [1])
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 75.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 78.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 75.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 78.
  (./Thesis.toc [1
 
 ])
@@ -266,6 +280,14 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 4.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 4.
+
+LaTeX Font Warning: Font shape `JT1/gt/m/it' undefined
+(Font)              using `JT1/gt/m/n' instead on input line 5.
+
+
+LaTeX Font Warning: Font shape `JY1/gt/m/it' undefined
+(Font)              using `JY1/gt/m/n' instead on input line 5.
+
 File: ../background/lambdasin.png Graphic file (type bmp)
 <../background/lambdasin.png> [4
 
@@ -276,108 +298,171 @@ File: ../background/t+1minute2.png Graphic file (type bmp)
 
 <../background/t+1minute2.png> [5]
 File: ../background/dislam1.png Graphic file (type bmp)
- <../background/dislam1.png>
-File: ../background/dislam2.png Graphic file (type bmp)
+ <../background/dislam1.png> [6]
+File: ../background/tezyun1.png Graphic file (type bmp)
 
-<../background/dislam2.png>
+<../background/tezyun1.png> [7]
+File: ../background/timeadjust.png Graphic file (type bmp)
+ <../background/timeadjust.png> [8]
 File: ../background/synwave1.png Graphic file (type bmp)
- <../background/synwave1.png>
-File: ../background/synwave2.png Graphic file (type bmp)
 
-<../background/synwave2.png>
+<../background/synwave1.png>
+File: ../background/synwave2.png Graphic file (type bmp)
+ <../background/synwave2.png>
 File: ../background/synwave3.png Graphic file (type bmp)
- <../background/synwave3.png>
-Excluding 'comment' comment.) (../result/result.tex [6] [7] [8]
+
+<../background/synwave3.png> [9]
+File: ../background/hoihens1.png Graphic file (type bmp)
+ <../background/hoihens1.png>
+File: ../background/hoihens2.png Graphic file (type bmp)
+
+<../background/hoihens2.png> [10]
+File: ../background/reflection1.png Graphic file (type bmp)
+ <../background/reflection1.png>
+File: ../background/backrefraction.png Graphic file (type bmp)
+
+<../background/backrefraction.png> [11] [12]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 261.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 261.
+File: ../background/difraction2.png Graphic file (type bmp)
+ <../background/difraction2.png>
+File: ../background/difraction1.png Graphic file (type bmp)
+
+<../background/difraction1.png> [13]) (../result/result.tex [14]
 第 3 章
 File: ../result/4wave.png Graphic file (type bmp)
-<../result/4wave.png>
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 22.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 22.
-File: ../result/0wave.png Graphic file (type bmp)
- <../result/0wave.png> [9
+<../result/4wave.png> [15
 
 ]
+File: ../result/0wave.png Graphic file (type bmp)
+ <../result/0wave.png>
 File: ../result/wave.png Graphic file (type bmp)
- <../result/wave.png> [10]
+ <../result/wave.png> [16]
 File: ../result/wavechangelambda.png Graphic file (type bmp)
 
-<../result/wavechangelambda.png>
+<../result/wavechangelambda.png> [17]
 File: ../result/5wave.png Graphic file (type bmp)
- <../result/5wave.png> [11] [12]
+ <../result/5wave.png>
 File: ../result/drawmode.png Graphic file (type bmp)
 
 <../result/drawmode.png>
 File: ../result/checkmode.png Graphic file (type bmp)
- <../result/checkmode.png> [13]
-File: ../result/diffractionstart.png Graphic file (type bmp)
+ <../result/checkmode.png> [18]
+File: ../result/diffractiondemo.png Graphic file (type bmp)
 
-<../result/diffractionstart.png>
-File: ../result/diffractionincident.png Graphic file (type bmp)
- <../result/diffractionincident.png>
-File: ../result/diffractionelementary.png Graphic file (type bmp)
+<../result/diffractiondemo.png> [19]
+File: ../result/diffractionstart1.png Graphic file (type bmp)
+ <../result/diffractionstart1.png>
+File: ../result/diffractionstart2.png Graphic file (type bmp)
 
-<../result/diffractionelementary.png> Excluding 'comment' comment.)
-(../implement/implement.tex [14] [15] [16]
+<../result/diffractionstart2.png>
+File: ../result/diffraction1.png Graphic file (type bmp)
+ <../result/diffraction1.png>
+File: ../result/diffraction2.png Graphic file (type bmp)
+
+<../result/diffraction2.png> [20]
+File: ../result/diffraction3.png Graphic file (type bmp)
+ <../result/diffraction3.png>
+File: ../result/diffraction4.png Graphic file (type bmp)
+
+<../result/diffraction4.png> Excluding 'comment' comment.)
+(../implement/implement.tex [21]
 第 4 章
-File: ../implement/miss_draw.png Graphic file (type bmp)
-<../implement/miss_draw.png> [17
+[22
 
 ]
-
-LaTeX Font Warning: Font shape `JT1/gt/m/it' undefined
-(Font)              using `JT1/gt/m/n' instead on input line 24.
-
-
-LaTeX Font Warning: Font shape `JY1/gt/m/it' undefined
-(Font)              using `JY1/gt/m/n' instead on input line 24.
-
-
-Overfull \hbox (3.44098pt too wide) in paragraph at lines 25--26
+File: ../implement/miss_draw.png Graphic file (type bmp)
+ <../implement/miss_draw.png>
+Overfull \hbox (3.44098pt too wide) in paragraph at lines 35--36
 \JY1/mc/m/n/12 各擬似ピクセルとの距離を計算し\OT1/cmr/m/n/12 , \JY1/mc/m/n/12 
 各擬似ピクセルに対応した配列 \OT1/cmr/m/n/12 (point[]distance[i][j])
  []
 
-[18]
+[23]
 File: ../implement/1pxcel.png Graphic file (type bmp)
- <../implement/1pxcel.png>
+ <../implement/1pxcel.png> [24]
 File: ../implement/2pxcel.png Graphic file (type bmp)
- <../implement/2pxcel.png> [19] [20]
+ <../implement/2pxcel.png> [25]
 File: ../implement/pointregulation1.png Graphic file (type bmp)
 
 <../implement/pointregulation1.png>
 File: ../implement/pointregulation8.png Graphic file (type bmp)
  <../implement/pointregulation8.png>
-[21] Excluding 'comment' comment.) (../summary/summary.tex [22] [23]
-第 5 章
-Excluding 'comment' comment.) (../appreciate/appreciate.tex [24
+[26]
+File: ../implement/hsb.png Graphic file (type bmp)
+ <../implement/hsb.png> [27] [28] [29]
+Overfull \hbox (9.4282pt too wide) in paragraph at lines 192--193
+[]\OT1/cmr/m/n/12 2.3 \JY1/mc/m/n/12 の方法で任意の擬似ピクセル上の変位計算を行
+うためのメンバ関数\OT1/cmr/m/n/12 ,now[]displacement[]y
+ []
 
-]) [25
+[30] [31]
+Underfull \vbox (badness 10000) detected at line 298
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 298
+ []
+
+[32] [33] [34]) (../considaration/considaration.tex [35]
+第 5 章
+File: ../result/reflectionsetumei.png Graphic file (type bmp)
+<../result/reflectionsetumei.png> [36
 
 ]
-Underfull \hbox (badness 1681) in paragraph at lines 92--93
-[] \JY1/mc/m/n/12 「 教育の情報化ビジ ョ ン　～２１世紀にふさわしい学びと学校の
+File: ../result/reflectionincident.png Graphic file (type bmp)
+ <../result/reflectionincident.png>
+File: ../result/reflectionangle20.png Graphic file (type bmp)
+
+<../result/reflectionangle20.png>
+File: ../result/finishreflectionangle20.png Graphic file (type bmp)
+ <../result/finishreflectionangle20.png>
+File: ../result/finishreflectionangle40.png Graphic file (type bmp)
+
+<../result/finishreflectionangle40.png> [37]
+File: ../result/refractionangle3015.png Graphic file (type bmp)
+
+<../result/refractionangle3015.png> [38]
+File: ../considaration/angle40.png Graphic file (type bmp)
+ <../considaration/angle40.png>
+File: ../considaration/angle50.png Graphic file (type bmp)
+
+<../considaration/angle50.png>
+File: ../considaration/angle50time.png Graphic file (type bmp)
+ <../considaration/angle50time.png> [39]
+File: ../considaration/pixcelproblem.png Graphic file (type bmp)
+
+<../considaration/pixcelproblem.png>) (../summary/summary.tex [40]
+第 6 章
+) (../appreciate/appreciate.tex [41
+
+]) [42
+
+]
+Underfull \hbox (badness 2435) in paragraph at lines 96--97
+[] \JY1/mc/m/n/12 「 教育の情報化ビジ ョ ン ～２１世紀にふさわしい学びと学校の
 創造を目指し
  []
 
-[26
+[43
 
 ] (./Thesis.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3279 strings out of 493693
- 47862 string characters out of 6149788
- 117136 words of memory out of 5000000
- 6755 multiletter control sequences out of 15000+600000
+ 3443 strings out of 493693
+ 51525 string characters out of 6149788
+ 124136 words of memory out of 5000000
+ 6884 multiletter control sequences out of 15000+600000
  21566 words of font info for 87 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 42i,7n,40p,479b,530s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,8n,40p,512b,534s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Thesis.dvi (28 pages, 37576 bytes).
+Output written on Thesis.dvi (45 pages, 80452 bytes).

@@ -1,28 +1,28 @@
-This is e-pTeX, Version 3.14159265-p3.5-130605-2.6 (utf8.euc) (TeX Live 2014) (preloaded format=platex 2014.11.25)  16 FEB 2015 11:48
+This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.9.5)  14 FEB 2017 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**background
+**background.tex
 (./background.tex
-pLaTeX2e <2006/11/10> (based on LaTeX2e <2014/05/01> patch level 0)
-Babel <3.9k> and hyphenation patterns for 78 languages loaded.
-./background.tex:1: Undefined control sequence.
-l.1 \chapter
-            {物理的背景}
+pLaTeX2e <2016/05/07> (based on LaTeX2e <2016/03/31>)
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+./background.tex:3: Undefined control sequence.
+l.3 \chapter
+            {物理学的基礎知識}
 ? 
-./background.tex:1: Emergency stop.
-l.1 \chapter
-            {物理的背景}
+./background.tex:3: Emergency stop.
+l.3 \chapter
+            {物理学的基礎知識}
 End of file on the terminal!
 
  
 Here is how much of TeX's memory you used:
- 4 strings out of 493807
- 54 string characters out of 6151950
- 53144 words of memory out of 5000000
- 3569 multiletter control sequences out of 15000+600000
- 7519 words of font info for 31 fonts, out of 8000000 for 9000
+ 4 strings out of 493693
+ 54 string characters out of 6149788
+ 53727 words of memory out of 5000000
+ 3661 multiletter control sequences out of 15000+600000
+ 7511 words of font info for 31 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 5i,0n,1p,33b,8s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 5i,0n,1p,43b,8s stack positions out of 5000i,500n,10000p,200000b,80000s
 No pages of output.

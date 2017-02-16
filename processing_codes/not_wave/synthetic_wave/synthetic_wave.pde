@@ -50,21 +50,33 @@ void draw(){
   
   if(check_mode == true){
   background(255);
+  strokeWeight(2);
     stroke(0);
   for(int i = 150; i < 330; i++){
   point(i,height/2 + 70*-sin(radians(i-150)));
+  
+
 }
 
 for(int j = 550; j < 730; j++){
   point(j,height/2 + 110*-sin(radians(j-550)));
 }
  line(50,height/2, width-50, height/2);
+ 
+   strokeWeight(5);
+  stroke(0,0,255);
+  line(700,350,800,350);
+  yokohidari(700,350);
+  
+  line(200,350,300,350);
+  yokomigi(300,350);
 
-  }
+}
   
   if(fmode == true){
      background(255);
     stroke(0);
+    strokeWeight(2);
     check_mode = false;
       for(int i = 550; i < 730; i++){
   point(i,height/2 + 70*-sin(radians(i-550)));
@@ -74,6 +86,16 @@ for(int j = 150; j < 330; j++){
   point(j,height/2 + 110*-sin(radians(j-150)));
 }
  line(50,height/2, width-50, height/2);
+ 
+ 
+ 
+    strokeWeight(5);
+  stroke(0,0,255);
+  line(700,350,800,350);
+  yokomigi(800,350);
+  
+  line(200,350,300,350);
+  yokohidari(200,350);
 
   }
   

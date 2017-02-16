@@ -34,6 +34,9 @@
 \usepackage{framed}
 \usepackage{url}
 \usepackage{subcaption}
+\usepackage{here}
+
+%\usepackage{subfigure}
 
 %\usepackage{wrapfig}	
 %\usepackage[dvipdfmx]{graphicx}
@@ -63,7 +66,7 @@
 %表紙
 \title{卒業論文\\ホイヘンスの原理の視覚化プログラムの開発}
 \author{関西学院大学理工学部\\情報科学科 西谷研究室\\3518 村上 大貴}
-\date{2017年3月}
+\date{2017年2月}
 \begin{document}
 \maketitle
 \newpage
@@ -80,7 +83,8 @@
 \input{../intro/intro}%序論
 \input{../background/background}%物理学的基礎知識
 \input{../result/result}%開発結果
-\input{../implement/implement}%ソフトの振る舞い，ソフト試行錯誤の過程
+\input{../implement/implement}
+\input{../considaration/considaration}%反射屈折の考察
 \input{../summary/summary}%総括
 \input{../appreciate/appreciate}%謝辞
 
@@ -89,7 +93,9 @@
 
 \begin{thebibliography}{9}
 \bibitem{simizu}「ICT活用授業による学力向上に関する総合的分析評価」,清水康敬, 日本教育工学会論文誌 32(3), (2008), 293-303.
-\bibitem{monbu}「教育の情報化ビジョン　〜２１世紀にふさわしい学びと学校の創造を目指して〜」,文部科学省，\url{http://www.mext.go.jp/b_menu/houdou/23/04/__icsFiles/afieldfile/2011/04/28/1305484_01_1.pdf}, p34.
+\bibitem{monbu}「教育の情報化ビジョン 〜２１世紀にふさわしい学びと学校の創造を目指して〜」,文部科学省，\url{http://www.mext.go.jp/b_menu/houdou/23/04/__icsFiles/afieldfile/2011/04/28/1305484_01_1.pdf}, 34.
+\bibitem{sakaki}「物理現象視覚化ソフトのライブラリ構築 」,榊原健,関西学院大学理工学部 情報科学科 卒業論文(2015), 31-32.
+\bibitem{ishikawa} 「Arduino/Processingを用いたシステム制御実験のラピッドプロトタイピング」, 石川将人,北卓人,大須賀公一, 自動制御連合講演会講演論文集, 53(0), (2010), 247.
 \end{thebibliography}
 
 \end{document}

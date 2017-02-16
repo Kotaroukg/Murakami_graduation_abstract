@@ -1,7 +1,7 @@
-Incident_waves f_wave;
-int angle = 40;
-//float refractive_index = 1.7;
+//反射のプログラム
 
+Incident_waves f_wave;
+int angle = 25;
 
 Elementary_waves[] elementary_waves_array;
 boolean keyReleased = false;
@@ -12,7 +12,7 @@ int point_regulation = 4;
 int s_p = size/point_regulation;
 int maximum_waves_number = 5; 
 int create_point_flag = 0;
-float point_width = 4.0;
+float point_width;
 float surface = size/5*3;
 
 float[][] point = new float[s_p][s_p];
@@ -22,11 +22,9 @@ boolean check = false;
 boolean slider_dragged = false;
 boolean draw_line_point = true;
 
-float lambda = 50.0;
+//float lambda = 300.0;
 //float period = 3.0;
 float record_lambda;
-float framerate = 20.0;
-
 float cross_line_x;
 int cross_line_x_i;
 
@@ -34,24 +32,25 @@ float average_slope = 0;
 int average_slope_count = 0;
 
 
-
-
-
-
 float max_phase = 0;
 int max_phase_x;
 int max_phase_y;
 
-float c;
+float y_to_x;
+
+float max_line_flag;
+
+float wave_period = 5.0;
 
 
-
+float incident_x_speed;
 
 
 void setup() {  
   colorMode(HSB, 360, 100, 100);
   size(size+200, size);
-  frameRate(framerate);
+  frameRate(10);
+  //println(frameRate);
   f_wave = new Incident_waves();
   f_wave.calculate_cross_line_x();
   elementary_waves_array = new Elementary_waves[maximum_waves_number];
@@ -62,10 +61,9 @@ void setup() {
 
 void make_waves_instance() {
   for (int i = 0; i < elementary_waves_array.length; i++) {
-    //Elementary_waves elementary_waves = new Elementary_waves(((-cross_line_x)+(float)point_width*(i-2)), surface, frameRate*f_wave.speed, f_wave.x); //点源５つなのでi-2している
-    Elementary_waves elementary_waves = new Elementary_waves(((-cross_line_x)+(float)point_width*(i-2.0)), surface, f_wave.speed*framerate*15, 1.0*15);
+    
+    Elementary_waves elementary_waves = new Elementary_waves(((-cross_line_x)+(float)point_width*(i-2.0)), surface, f_wave.speed*cos(radians(angle))*frameRate*wave_period, wave_period);
     elementary_waves_array[i] = elementary_waves;
-    //println(elementary_waves_array[i].center_x);
     int s_p_n = s_p * i;
     for (int j = 0; j < s_p; j++) {
       for (int k = 0; k < s_p; k++) {
@@ -78,27 +76,13 @@ void make_waves_instance() {
 
 
 void draw() {  
-  //println(frameRate);
   background(255);
   strokeWeight(point_regulation);
   draw_wave();
 }
 
 
-void keyPressed() {
-  if ((keyPressed == true) && keyReleased == true &&((key == 'c') ||  (key == 'C'))) {
-    keyReleased = false;
-    check_mode = true;
-  }
-  if ((keyPressed == true) && keyReleased == true && ((key == 'b') ||  (key == 'B'))) {
-    keyReleased = false;
-    check_mode = false;
-  }
-}
 
-void keyReleased() {
-  keyReleased = true;
-}
 
 float distance_calculate(float center_x, float center_y, float x, float y) {
   float a = dist(center_x, center_y, x, y);
@@ -107,26 +91,33 @@ float distance_calculate(float center_x, float center_y, float x, float y) {
 
 void draw_wave() { //波が一つのバージョン
   f_wave.draw_incident_waves();
+  int number_wave_point2 = number_wave_point*2;
   for (int i = cross_line_x_i; i < s_p; i++) {/////////
     for (int j = 0; j < s_p/5*3; j++) {
       for (int k = 0; k < number_wave_point; k++) {
         float range = elementary_waves_array[k].range_to_calculate();//現在の波の最先端の距離を計算
-        float range2 = range - elementary_waves_array[k].lambda; //ここを消せば波が増える
+        float range2 = range - (elementary_waves_array[k].lambda); //ここを消せば波が増える
 
         if (point_distance[i+s_p*k][j] < range && point_distance[i+s_p*k][j] > range2) { //クラス配列，各点と波ごとの距離と範囲を比較
 
           float y = elementary_waves_array[k].now_displacement_y(point_distance[i+s_p*k][j], 
-          elementary_waves_array[k].lambda, elementary_waves_array[k].period, elementary_waves_array[k].created_time);
+            elementary_waves_array[k].lambda, elementary_waves_array[k].period, elementary_waves_array[k].created_time);
           point[i][j] += y;
         } else {
         }
       }//kはここまで
+
       point[i][j] += number_wave_point;
+      if (number_wave_point != 0) {
+        stroke( (number_wave_point2- point[i][j])*(230/number_wave_point2),100,100);
+      } else {
+        stroke(115, 100, 100);//波が一つも生まれてない時画面を緑にする
+      }
 
-
-      //////////こっからmax_phase
-      if (number_wave_point > 4) {
-        if (max_phase > point[i][j]) {
+      //max_phaseの計算
+      if(number_wave_point>4){//全ての波源が動作し始めてから.
+        if(max_phase < point[i][j])
+        {
           max_phase = point[i][j];
           max_phase_x = i;
           max_phase_y = j;
@@ -134,61 +125,83 @@ void draw_wave() { //波が一つのバージョン
       }
 
 
-      if (number_wave_point != 0) {
-        stroke(point[i][j]*(230.0/(number_wave_point*2.0)), 100, 100);
-      } else {
-        stroke(115, 100, 100);//波が一つも生まれてない時画面を緑にする
-      }
-      point[i][j] = 0;
+      point[i][j] = 0;//初期化
       point(i*point_regulation, j*point_regulation);
 
       //ここまでjが回っている
     }
   }//ここまでi
-  stroke(300, 100, 100);
+
+
+  stroke(0);
   rect(0, surface, size, 2);
   stroke(0);
-
-
   f_wave.draw_line();
 
   strokeWeight(6);
-
   for (int a = 0; a < number_wave_point; a++) {
     point(elementary_waves_array[a].center_x, elementary_waves_array[a].center_y);
-    text(a+1, elementary_waves_array[a].center_x-10, elementary_waves_array[a].center_y+30);
   }
   slider(size+20, 20, size-50, 30, 10.0, 200.0, 40);
 
-  line(elementary_waves_array[maximum_waves_number/2+1].center_x, elementary_waves_array[maximum_waves_number/2+1].center_y, max_phase_x*point_regulation, max_phase_y*point_regulation);
-  max_phase = maximum_waves_number*2;
-  if(max_phase_x != 0 && max_phase_y*point_regulation < surface - 20 ) {
-    average_slope += (float)max_phase_y/(float)max_phase_x;
-    average_slope_count++;
-    //println(average_slope);
-  }
+
+    if(max_phase_y!=0 &&max_phase_y*point_regulation < surface-20  ){//yの最高座標が表面離れたら,average計算して描写　
+      int max_phase_x_p = max_phase_x*point_regulation;
+      int max_phase_y_p = max_phase_y*point_regulation;
+      average_slope += (surface-(float)max_phase_y_p)/(max_phase_x_p-elementary_waves_array[2].center_x);
+      average_slope_count++;
+      line(elementary_waves_array[maximum_waves_number/2].center_x, surface,
+        max_phase_x_p, max_phase_y_p);
+    
+    float a = average_slope/(float)average_slope_count;
+    //println(a);
+    stroke(300,100,100);
+    line(elementary_waves_array[2].center_x,elementary_waves_array[2].center_y,
+      elementary_waves_array[2].center_x+500,elementary_waves_array[2].center_y-500*a);
+    stroke(0);
   //println(max_phase_y);
+}
   
-  if(angle < 40){
+  if(angle < 35){
     if(max_phase_y < 3 && max_phase_x*point_regulation > -cross_line_x+10){
       stroke(300,100,100);
-      float fuck = average_slope/(float)average_slope_count;
-      println(average_slope);
-      println(average_slope_count);
-      println(fuck);
+      float a = average_slope/(float)average_slope_count;
+      //println(average_slope);
+      //println(average_slope_count);
+      line(elementary_waves_array[2].center_x,elementary_waves_array[2].center_y,
+        elementary_waves_array[2].center_x+500,elementary_waves_array[2].center_y-500*a);
+      for(float count = 1.0; count < 90.0; count+=0.1){
+        if( tan(radians(count)) > a ){
+          println(90-count-0.1);
+          break;
+        }
+        
+      }
+      noLoop();
+      stroke(0);
+      
+    }
+  }else{//35度以上
+    if(max_phase_x > 97 && max_phase_x*point_regulation > -cross_line_x+10) {
       stroke(300,100,100);
-      //line(elementary_waves_array[maximum_waves_number/2+1].center_x, elementary_waves_array[maximum_waves_number/2+1].center_y,500, -(500*fuck-surface));
+      float a = average_slope/(float)average_slope_count;
+      //println(a);
+      //println(average_slope);
+      //println(average_slope_count);
+      line(elementary_waves_array[2].center_x,elementary_waves_array[2].center_y,
+      elementary_waves_array[2].center_x+500,elementary_waves_array[2].center_y-500*a);
+      
+      for(float count = 0.1; count < 90.0; count+=0.1){
+        if( tan(radians(count)) > a ){
+          println(90-count-0.1);
+          break;
+        }
+      }
       stroke(0);
       noLoop();
     }
-  }else{
-    if(max_phase_x > s_p-3) noLoop();
   }
-
- /* line(elementary_waves_array[maximum_waves_number/2+1].center_x, elementary_waves_array[maximum_waves_number/2+1].center_y, max_phase_x*point_regulation, max_phase_y*point_regulation);
-  max_phase = maximum_waves_number*2;
-  average_slope += (float)max_phase_y/(float)max_phase_x;
-  average_slope_count++;*/
+  max_phase = 0;
 }
 
 
@@ -198,11 +211,12 @@ class Incident_waves {
   float x, y;
   float speed;
   Incident_waves() {
-    speed = 1.5;
-    x =  (speed *(cos(radians(angle))))/ (sin(radians(angle)));
-    c =  (cos(radians(angle)))/ (sin(radians(angle)));
+    speed = 4.0;
+    y_to_x =  (cos(radians(angle)))/ (sin(radians(angle)));
+    x =  (speed * y_to_x);
     y = 0;
-    //speed = 1.0;
+    incident_x_speed = x;
+    point_width = incident_x_speed; 
   }
 
   void draw_line() {
@@ -287,12 +301,11 @@ class Elementary_waves {
     collision_check_flag = false;
   }
 
-  float now_displacement_y(float distance, float lambda, float period, float time_adjustment) {
-    float time_phase_difference;
-    time_phase_difference = ((millis()-time_adjustment)/1000.0)*(360.0 / period); //ここで時間差を計算している→変数で開始時刻を記録→これを代入すればいい．
-    float a; 
-    a = (distance%lambda)/lambda*(360.0);
-    float y = sin(radians(-time_phase_difference+a));
+  float now_displacement_y(float distance, float lambda, float period, float time_adjustment){
+    float time_phase_adjustment;
+    time_phase_adjustment = ((millis()-time_adjustment)/1000.0)*(360.0 / period); //ここで時間差を計算している→変数で開始時刻を記録→これを代入すればいい．
+    float distance_lambda_adjustment = (distance%lambda)/lambda*(360.0);
+    float y = sin(radians(time_phase_adjustment - distance_lambda_adjustment));
     return y;
   }
 

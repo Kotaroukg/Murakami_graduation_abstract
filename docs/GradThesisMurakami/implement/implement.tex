@@ -1,60 +1,70 @@
+
 \chapter{プログラムの制作過程と解説}
-本章では，今回作成したプログラムのそれぞれの処理を解説する.
-\section{平面波の描写}
-回折反射屈折の性質を可視化するためには多数の波を生成し,それらに重ね合わせの原理を適用しなければならない.そこで複数の点源から波を生成した上で,重ね合わせの原理によって生じた位相変化を視覚化するプログラムを作成した.
+この章では今回作成したプログラムのうち,波の干渉と回折現象を視覚化したプログラムの制作過程の記述と処理の解説を行う.
+\section{Processing言語}
+本研究のプログラムに使用した言語はProcessing言語である.
+Processing言語は以下に挙げるような特徴を有している\cite{ishikawa}．
+\begin{enumerate}
+\item 基本文法はJavaをベースに記法を簡単化したものであり,
+インタラクティブソフトウェアやビジュアルプレゼンテーションを容易に実現することに特化している.
+%\item 環境構築が非常に容易かつ無償で行える.これはgithubプラットフォームでの共同開発を試みていた榊さんの利点
+\item Windows, iOS, Androidのタブレット端末で用いられる3つのプラットフォーム全てで動作する. %//なんで動作するかを調べる
+\end{enumerate}
+1の特徴からは,視覚化プログラムの作成に適していると言える.  2の特徴からは,学習者があらゆるタブレット端末を使用してもプログラムが動作することが言える.これらの理由から,本研究で使用するプログラミング言語に最も適していると考えた.
+
+\section{波の干渉の描写}
+回折,反射,屈折の性質を可視化するためには多数の波を生成し,それらに重ね合わせの原理を適用しなければならない.そこで複数の点源から波を生成した上で,重ね合わせの原理によって生じる干渉を視覚化するプログラムを作成した.
 
 \subsection{波源から波の代わりとなる円を描写するプログラム}
-最初はこれを実現するために,図\ref{fig:missdraw}のように,画面左上から右へ進行する斜めの線を入射波に見立て,入射波が波源として設定した座標を通過すると,波源から波の代わりとなる円を描写するプログラムを作成した.この後,円が重なった部分の色を変化させたり複数の円の包絡線を太く描写することを考えたが,計算アルゴリズムが非常に複雑になることや,処理速度が追いつかないことからこの方法は断念した.
+最初は波の干渉の描写を実現するために,図\ref{fig:missdraw}のように,画面左上から右下へ進行する斜めの線を入射波に見立て,入射波が波源として設定した座標を通過すると,波源から波の代わりとなる円を描写するプログラムを作成した.この後,円が重なった部分の色を変化させたり複数の円の包絡線を太く描写することを考えた. しかし計算アルゴリズムが非常に複雑になることや,処理速度が追いつかないことからこの方法は断念した.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
  \begin{center}
   \includegraphics[width=70mm]{../implement/miss_draw.png}
  \end{center}
- \caption{波源から波に見立てた円を描写するプログラムの動作画面．}
+ \caption{プログラムの動作画面．}
  \label{fig:missdraw}
 \end{figure}
-
-\newpage
 そこで各ピクセルが波源からの距離,波源の生成された時間,波源から生成される波の波長と周期を基にして自らの地点の位相を計算する手法を考案した.
 
 \subsection{平面波描写のアルゴリズム} 
 \label{sec:algo}
 アルゴリズムは以下の手順である.
 \begin{enumerate}
- \item 平面波の描写領域の変位計算を何ピクセルごとに行うかを指定する.これにより描写領域のピクセル数を擬似的に変更する.これ以降,説明のために擬似的に変更したピクセルの単位を\emph{擬似ピクセル}と記す.
+ \item 平面波の変位計算を何ピクセルごとに行うかを指定する.これにより描写領域のピクセル数を擬似的に変更する.これ以降,説明のために擬似的に変更したピクセルの単位を\emph{擬似ピクセル}と記す.
   \item 描写領域がクリックされると波源の座標情報が追加される.この際1つの波源ごとに,各擬似ピクセルとの距離を計算し,各擬似ピクセルに対応した配列(point\_distance[i][j])に格納している.
-  \item 点源とは異なる座標の点における位相の計算を全ての点源と全ての擬似ピクセルに対し行い,これによって得られた位相の値をその地点での変位に変換し,各擬似ピクセルごとに設けた配列(point\_[i][j])に足し合わせていく.
+  \item 点源とは異なる座標の点における変位の計算を,全ての点源と全ての擬似ピクセルに対しおこない,これによって得られた変位の値を,それぞれの擬似ピクセル上での変位に変換し,各擬似ピクセルごとに設けた配列(point\_[i][j])に足し合わせていく.
   \item 各擬似ピクセルごとの変位の値を基にして,値に応じた色の点を描写する.
  \item 描画領域がクリックされた瞬間のみ手順2を,そうでなければ手順3-4を毎フレームごとに繰り返して平面波の挙動を継続的に描写し続ける.
  \end{enumerate}
- なお,手順2の段階で配列(point\_distance[i][j])に値を格納しているのは,手順3での異なる座標の点における位相の計算を行う際,点源と擬似ピクセルの距離が必要であるため,あらかじめ計算させることで処理を軽くするためである.
+ なお,手順2の段階で配列(point\_distance[i][j])に値を格納しているのは,手順3での異なる座標の点における変位の計算をおこなう際,点源と擬似ピクセルの距離が必要であるため,あらかじめ計算させることで処理を軽くするためである.
 
 \subsection{描画領域のピクセル数を擬似的に変更する方法}
-\ref{sec:algo}に描写領域のピクセル数を擬似的に変更するとあるが,これを行う事により平面波描写の処理を大幅に軽減することができる.処理の方法を以下に示す.
+\ref{sec:algo}に描写領域のピクセル数を擬似的に変更するとあるが,これを行う事により平面波描写の処理を大幅に軽減することができる.
 
-まず,図\ref{fig:1pxcel}のように8×8ピクセルの描写領域があるとする.
-これに対し\ref{sec:algo}のアルゴリズムを適用すると,フレームごとに8×8の64個の座標それぞれに対し位相計算を行うことになる.
-一方,図\ref{fig:2pxcel}のように8×8の描写領域に対し,変位計算を2ピクセルごとに行うとするならば,フレームごとの位相計算は4×4の16個の座標に対してすればよい.つまり計算回数は図\ref{fig:1pxcel}の時と比べ,4分の1回となる.
+まず,図\ref{fig:pxcelone}のように8×8ピクセルの描写領域があるとする.
+これに対し\ref{sec:algo}のアルゴリズムを適用すると,フレームごとに8×8の64個の座標それぞれに対し変位計算を行うことになる.
+一方,図\ref{fig:pxceltwo}のように8×8の描写領域に対し,変位計算を2ピクセルごとに行うとするならば,フレームごとの位相計算は4×4の16個の座標に対してすればよい.つまり計算回数は図\ref{fig:pxcelone}の時と比べ,4分の1回となる.
 
 今回作成したプログラムは描写領域を400×400ピクセルとしているため,
 ピクセル数を変更しなければフレームごとに160000回の変位計算を行うことになるが,
 4ピクセルごとに変位計算を行うことで計算回数を10000回まで削減した.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
  \begin{center}
   \includegraphics[width=90mm]{../implement/1pxcel.png}
  \end{center}
  \caption{8$×$8の描写領域に色を塗る場合．}
- \label{fig:1pxcel}
+ \label{fig:pxcelone}
 \end{figure}
 
 
-\begin{figure}[htbp]
+\begin{figure}[H]
  \begin{center}
   \includegraphics[width=90mm]{../implement/2pxcel.png}
  \end{center}
  \caption{8$×$8の描写領域を擬似的に4$×$4に変更する場合.}
- \label{fig:2pxcel}
+ \label{fig:pxceltwo}
 \end{figure}
 
 
@@ -66,11 +76,7 @@
  なお,図\ref{fig:1pxceldraw},図\ref{fig:8pxceldraw}以外で論文に用いているプログラムの動作画面は全て擬似ピクセル数を4で設定したものである.
 
 
-
-
-
-
-\begin{figure}[htbp]
+\begin{figure}[H]
  \begin{center}
   \includegraphics[width=140mm]{../implement/pointregulation1.png}
  \end{center}
@@ -78,8 +84,7 @@
  \label{fig:1pxceldraw}
 \end{figure}
 
-
-\begin{figure}[htbp]
+\begin{figure}[H]
  \begin{center}
   \includegraphics[width=140mm]{../implement/pointregulation8.png}
  \end{center}
@@ -88,530 +93,273 @@
 \end{figure}
 
 
+\subsection{波の色の表現方法}
 
-\subsection{点源とは異なる座標の点における変位の計算の実装}
-物理学的背景の章で説明した(別の章の参照方法を調べる),点源とは異なる座標の点における変位の計算を行うためのElementary\_wavesクラスのメンバ関数,now\_displacement\_yは以下のように実装した.
-\begin{screen}
+Processing言語では色を表現する際,RGBカラーモデルとHSBカラーモデルの2つを用途に応じて使用することができる.
+RGBカラーモデルは赤(Red),緑(Green),青(Blue)の3つの色を様々な配分で混ぜ合わせることで色を表現し,
+HSBカラーモデルは色相(Hue),彩度(Saturation),明度(Brightness)の組み合わせによって色を表現する.
+
+図\ref{fig:hsb}はHSBモードでS(彩度)=100,B(明度)=100に設定し,H(色相)を変更した際の色の変化である.図の右側の数字はH(色相)の値を示している.
+このようにHSBカラーモデルではRGBカラーモデルとは異なり,赤,緑,青の3色を1つの値(色相)を入れ替えるだけで表現できる特徴があるため,プログラムではこのモデルを採用した.
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=40mm]{../implement/hsb.png}
+ \end{center}
+ \caption{HSBモードで色相の値を上下させた時の色の変化．}
+ \label{fig:hsb}
+\end{figure}
+
+
+プログラムでは,擬似ピクセルごとに記録された波の変位に応じて描画する点の色を変更する.
+この時,波の変位が高い時は赤色,変位が0に近い場合は緑色,変位が低い場合には青色で描写するように処理を行う.
+\begin{framed}
 {\small
 \begin{verbatim}
-  float now_displacement_y(float distance, float lambda, 
-  float period, float time_adjustment){
-    float time_phase_difference;
-    time_phase_difference = 
-    	((millis()-time_adjustment)/1000.0)*(360.0 / period);
-    float a = (distance\%lambda)/lambda*(360.0);
-    float y = sin(radians(-time_phase_difference+a));
+point[i][j] += number_wave_point;
+stroke( (number_wave_point2- point[i][j])*(230/number_wave_point2),100,100);
+\end{verbatim}}
+\end{framed}
+この処理は各擬似ピクセルごとの(変位)を0$\sim$230までの値に変換するものである.
+
+まず(point[i][j])に格納されている擬似ピクセルの変位に現在の波源の数を足す.
+例えば点源が3つある場合,各擬似ピクセルの変位は波源の振幅が1であるため-3$\sim$3までの値をとる.ここに点源の数を足すと(point[i][j])の値は0$\sim$6までの値をとり,全て正の数となる.
+次に変位の値が大きいほど赤色に近づけるようにするため,点源の数の2倍(number\_wave\_point2)から(point[i][j])を減算する.
+最後に点源の数の2倍で割ることで値を0$\sim$1の範囲にしてから230を掛けることで,変位の変化と色の変化を連動させることができる.
+
+\section{Elementary\_wavesクラス} 
+このクラスは波源と,波源から生じる波に関する処理を行っている.
+ \begin{framed}
+{\small
+\begin{verbatim}
+class Elementary_waves{
+  float center_x; float center_y;
+  float lambda;
+  float period;
+  float created_time;
+  float period_max; float period_min;
+  float lambda_max; float lambda_min;
+
+  Elementary_waves(float _center_x, float _center_y, 
+  float _lambda, float _period, 
+    float _period_min, float _period_max, 
+    float _lambda_min, float _lambda_max){
+    	center_x = _center_x; center_y = _center_y;
+    	lambda = _lambda;
+    	period = _period;
+    	period_max = _period_max; period_min = _period_min;
+    	lambda_max = _lambda_max; lambda_min = _lambda_min;
+    	created_time = 0; 
+    }
+    float now_displacement_y(float distance, float lambda, 
+    float period, float time_adjustment){
+    float time_phase_adjustment;
+    time_phase_adjustment = 
+    ((millis()-time_adjustment)/1000.0)*(360.0 / period); 
+    float distance_lambda_adjustment = 
+    (distance%lambda)/lambda*(360.0);
+    float y = 
+    sin(radians(time_phase_adjustment - 
+    distance_lambda_adjustment));
     return y;
   }
+}
+}
 \end{verbatim}}
-\end{screen}
+\end{framed}
+ 
+ 
+ \subsection{メンバ変数}
+ クラスElementary\_wavesは波源が持つ様々なパラメータをメンバ変数としている.メンバ変数を以下に示す.
+ \begin{description}
+ \item[center\_x, center\_y]\mbox{}\\
+ 波源のx座標,y座標を記録する.
+ \item[lambda]\mbox{}\\
+ 波源から生じる波の波長を記録する.
+  \item[period]\mbox{}\\
+  波源から生じる波の波長を記録する.
+   \item[period\_max, period\_min]\mbox{}\\
+   スライダーで周期を調節する際の最大値,最小値を記録する.
+    \item[lambda\_max,lambda\_min]\mbox{}\\
+    スライダーで波長を調節する際の最大値,最小値を記録する.
+     \item[created\_time]\mbox{}\\
+     波源が生成された時間を記録する.
+ \end{description}
+
+プログラムではクラス配列としてクラスElementary\_wavesのインスタンスを複数生成し,各波源としている.
+
+
+\subsection{点源とは異なる座標の点における変位の計算の実装}
+\ref{sec:calculatey}の方法で任意の擬似ピクセル上の変位計算を行うためのメンバ関数,now\_displacement\_yを実装した.
 
 引数のdistanceにはある波源と,ある擬似ピクセルとの距離を代入する.
 lambdaにはある波源から生成される波の波長,periodにはある波源から生成される波の周期を代入する.
 time\_adjustmentにはある波源が生成された際に,プログラムを起動してから経過していた時間を代入する.
 
-phase\_difference, a(変数名はのちのち変える)が物理学的背景の章で説明したどこに対応するのかを記す.
+Processing言語にはプログラムが起動してからのミリ秒(1/1000秒)の数を返り値とするmillis()という関数が備えられている.計算上ミリ秒ではなく秒数に直した方が都合がいいので,millisの値を1000で割っている.
 
-Processing言語にはプログラムが起動してからのミリ秒(1/1000秒)の数を返り値とするmillis()という関数が備えられている.(ここに引用元は必要なのか?processingのリファレンス)計算の都合上ミリ秒ではなく秒数に直した方が都合がいいので,5行目でmillisの値を1000で割っている.
+またsin関数の中の値をradians()関数によって角度の単位を「度」からラジアンに変換している.Processing言語のパラメータの単位はラジアンなのでこのような処理を施している.
 
-7行目ではsin関数の中の値をradians()関数によって角度の単位を「度」からラジアンに変換している.Processingのパラメータの単位はラジアンなのでこのような処理を施している.
-
-
-
-\subsection{波の色の表現方法}
-擬似ピクセルごとに記録された波の変位に応じて描画する点の色を変更する.
-\begin{screen}
-{\small
-\begin{verbatim}
-  stroke(point[i][j]*(230/(number_wave_point*2)),100,100,100)\end{verbatim}}
-\end{screen}
-point[i][j]
-
-
-
-
-
-
-
-
-\begin{comment}
-
-
-
-
-
+\section{指定したy座標におけるx座標の変位の描写}
+\ref{sec:check}節で説明した,y軸上の変位を描写するアルゴリズムを以下に示す.
 \begin{enumerate}
-  \item 複数の粒子モデルを用意し，現在の座標、１つ前の座標，粒子に加わる力のパラメータを持たせる．
-  \item Lennard-Jonesポテンシャルを用いて，粒子モデルに加わる力の合力を計算する．
-  \item Verlet法を用いて次の座標を計算する．
-  \item 2-3を繰り返して粒子モデルの座標を継続的に決定し続ける．
+\item 各擬似ピクセルの変位を計算する.
+\item 手順1によって得られた値を擬似ピクセルごとに設けられた配列に減算して格納する.
+\item drawモードで赤線が描写されている座標の変位を取得し,振幅となる値を掛けた上で点として描写する.
+\item 変位を測る目盛りを描写する.
+\item 1-4を繰り返す.
 \end{enumerate}
+手順2で減算する理由は,Processing言語で用いられる座標系を,数学等で用いられる一般的な座標系に変換して描写するためである.
 
+\section{Sliderクラス}
+波の干渉の視覚化プログラム内で,榊の作成したプログラムを元に,波源の数をいくら増やした場合でもスライダーの数がそれに応じて増えるようにクラス化した\cite{sakaki}.コードを以下に記す.
+\begin{framed}
+{\small
+\begin{verbatim}
+class Sliders{
+  int position_x; int position_y;
+  int slider_height; int slider_width;
+  int digit;
+  int number_tickmarks;
+  int num_separator;
+  float min; float max;
+  float cordinate_y;
+  String variable_name;
+  boolean draw_flag;
+  boolean slider_dragged;
 
-\section{粒子の初期状態の設定}
-粒子の座標，粒子にかかっている力を初期状態にする関数set\_particleは以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-void set_particle(){
-  int i, j, k=0;
-  for(i=1; i<10; i++){
-    for(j=1; j<10; j++){
-      if(k==n) break;
-      ball_p[k][0] = i;
-      ball_p[k][1] = j;
-      pre_p[k][0] = i;
-      pre_p[k][1] = j;
-      k++;
-    }
-  }
-  for(i=0; i<n; i++){
-    ball_f[i][0] = 0; 
-    ball_f[i][1] = 0;
-  } 
-} 
-\end{verbatim}}
-\end{screen}
-変数i, jは粒子の座標を等間隔にするための任意の数値であり，kは粒子の番号，nは粒子の個数である．
-粒子の数だけ，粒子の座標(ball\_p)と過去の座標(pre\_p)の初期値の格納を行い，粒子にかかっている力(ball\_f)を初期状態の0に設定している．
-座標の初期値は左上から縦に9個ずつ等間隔に並ぶようになる．この関数はリセットにも用いられており，スライダーによって粒子の数が変更された際も実行される．
-
-\section{粒子に加わる力}
-ある一つの粒子に加わる力を決定するためには，他の粒子それぞれに対して力の計算を行い，それらの合力を求める必要がある．
-\subsection{粒子間に加わる力の計算}
-粒子間距離からLennard-Jonesポテンシャルを用いて，粒子に加わる力を求める．２粒子の座標からそれぞれの粒子に加わる力を計算する関数inter\_forceは以下ように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-float[] lennard(float p1[], float p2[]){
-  float d, force;
-  float[] force_xy = new float[2];
-  d = distance(p1, p2);
-  force = -30 * pow(d,-13) + 30 * pow(d,-7);
-  force_xy[0] = force * (p2[0] - p1[0])/d; 
-  force_xy[1] = force * (p2[1] - p1[1])/d;
-  return force_xy;  
-}
-\end{verbatim}}
-\end{screen}
-粒子の座標p1,p2を引数とし，p1に加わる力を返すようになっている．force\_xy[0]はx方向成分， force\_xy[1]はy方向成分である．
-Lennard-Jonesポテンシャルによる力の計算は粒子間距離が1の時に力が0になるように定数を決めている．
-粒子p2に加わる力はp1に加わる力の逆向きになるので以下のような実装を行う．
-\begin{screen}
-{\small
-\begin{verbatim}
-void inter_force(int i, int j){
-  float[] tmp= new float[2];
-  tmp = lennard(ball_p[i], ball_p[j]);
-  ball_f[i][0] += tmp[0];
-  ball_f[i][1] += tmp[1];
-  ball_f[j][0] += -tmp[0];
-  ball_f[j][1] += -tmp[1];
-}
-\end{verbatim}}
-\end{screen}
-２つの粒子の番号を引数とし，それらの粒子の座標を用いて関数lennardを実行し，結果をそれぞれのball\_fに格納している．後に複数の粒子との合力を求めるためにball\_fに対して加算代入(+=)を行う．
-\subsection{合力の計算}
-\begin{screen}
-{\small
-\begin{verbatim}
-for( i=0; i<n-1; i++){
-  for( j=i+1; j<n; j++){
-    inter_force(i, j);
-  }
-}
-\end{verbatim}}
-\end{screen}
-n個の粒子に対して重複を持たないように２粒子組み合わせを全て選択し，関数inter\_forceを実行している．これによりそれぞれの粒子のball\_fに，粒子間に加わる力が何度も加算代入され合力が求まる．
-
-\section{粒子の動作}
-粒子の座標の計算を行い，座標を更新することによって粒子を動かしていく．
-\subsection{Verlet法による計算}
-Verlet法を用いて粒子の座標を決定する．Verlet法の計算は以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-float[] verlet(float current[], float previous[], float force[]){
-  float[] newpos = new float[2];
-  newpos[0]=2*current[0]-previous[0]+h*h/m*force[0];
-  newpos[1]=2*current[1]-previous[1]+h*h/m*force[1];
-  return newpos;
-} 
-\end{verbatim}}
-\end{screen}
-Verlet法に従い，現在の座標(current),h時間前の座標(previous),粒子にかかっている力(force)を引数として，h時間後の座標(newpos)を返すようになっている．hは時間刻み，mは質量であり，それぞれグローバル変数で定義している．
-\subsection{座標の更新}
-Verlet法の計算結果から粒子の座標を更新する関数は以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-void calc_verlet(int i){
-  float[] tmp= new float[2];
-  if(solid_mode) ball_f[i][1]+= 0.00001/(h*h);//solid_mode
-  tmp = ball_p[i];
-  ball_p[i] = verlet(ball_p[i], pre_p[i],ball_f[i]);
-  pre_p[i]= tmp; 
-}
-\end{verbatim}}
-\end{screen}
-i番目の粒子に対してVerlet法の計算を行い，計算結果から現在の座標(ball\_p)の更新を行う．Verlet法を繰り返し行えるように過去の座標(pre\_p)の更新も行う必要があり，tmpを用いて更新前のball\_pをpre\_pに格納している．
-
-\section{粒子の描画}
-粒子の座標が決定したので，粒子の描画を行う．また，粒子の速度によって色を変化させる．
-\begin{screen}
-{\small
-\begin{verbatim}
-void draw_particle(int i){
-  float v;
-  v = distance(ball_p[i], pre_p[i]);
-  colorMode(HSB,360,100,100);
-  fill(230+5000*v,100,100);  
-  ellipse(ball_p[i][0]*50,ball_p[i][1]*50, ball_size*100,ball_size*100);
-}
-\end{verbatim}}
-\end{screen}
-
-\subsection{描画}
-\begin{screen}
-{\small
-\begin{verbatim}
-ellipse(ball_p[i][0]*50,ball_p[i][1]*50, ball_size*100,ball_size*100);
-\end{verbatim}}
-\end{screen}
-粒子の描画はball\_p*50ピクセルの位置に円を描くというものになる．50倍するのはball\_pの値の範囲が0から10であり，粒子の動作範囲が500ピクセルの正方形であるからである．ball\_sizeは粒子のサイズを決定するグローバル変数である．
-
-\subsection{粒子の色}
-粒子の速度によって色を変化させる．色は速度が大きくなればなるほど，青から赤に変化するようにする．
-\begin{screen}
-{\small
-\begin{verbatim}
-  float v;
-  v = distance(ball_p[i], pre_p[i]);
-  colorMode(HSB,360,100,100);
-  fill(230+5000*v,100,100); 
-\end{verbatim}}
-\end{screen}
-粒子の現在の座標(ball\_p)と過去の座標(pre\_p)の距離を速度と考え，それに応じて色を変化させるようにしている．カラーモードをHSBに変更することによって，H(色相)の調整のみで青から赤に変化させる事が可能になる．
-
-\begin{figure}[htbp]
- \begin{center}
-  \includegraphics[width=80mm]{../implement/color_HSB.png}
- \end{center}
- \caption{HSBによる色の変化．}
- \label{fig:hsb}
-\end{figure}
-図\ref{fig:hsb}はS(彩度)=100,B(明度)=100の状態でH(色相)を変化させたときの色の変化を表している．粒子の色は230から360までの値をとり，青から赤に徐々に変化することが確認できる．
-
-\section{壁との衝突}
-粒子が動作範囲内の枠内を超えた場合，衝突判定を行い反射させる必要がある．判定を行う関数reflectは以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-void reflect(int i){
-  if(ball_p[i][0]<ball_size){
-  ball_p[i][0] = ball_size*2-ball_p[i][0];
-  pre_p[i][0] = ball_size*2-pre_p[i][0];
-  }  
-  else if(ball_p[i][0]>10-ball_size){
-    ball_p[i][0] = (10-ball_size)*2-ball_p[i][0];
-    pre_p[i][0] = (10-ball_size)*2-pre_p[i][0];
+  Sliders(int _position_x, int _position_y, int _slider_height,
+   int _slider_width, float _min, float _max,
+    int _number_tickmarks,int _digit, String _variable_name){
+    position_x = _position_x; position_y = _position_y;
+    slider_height = _slider_height; slider_width = _slider_width;
+    min = _min; max = _max;
+    number_tickmarks = _number_tickmarks;
+    digit = _digit;
+    variable_name = _variable_name;
+    draw_flag = false;
+    slider_dragged = false;
   }
 
-  if(ball_p[i][1]<ball_size){
-    ball_p[i][1] = ball_size*2-ball_p[i][1];
-    pre_p[i][1] = ball_size*2-pre_p[i][1];
-  }
-  else if(ball_p[i][1]>10-ball_size && solid_mode)
-   ball_p[i][1]=10-ball_size-0.01;  
-  else if(ball_p[i][1]>10-ball_size){
-    ball_p[i][1] = (10-ball_size)*2-ball_p[i][1];
-    pre_p[i][1] = (10-ball_size)*2-pre_p[i][1];
-  }
-}
-\end{verbatim}}
-\end{screen}
-粒子iについて壁との衝突判定を行い，反射させている．衝突判定は上下左右の壁と行う必要があり，if文でそれぞれ行っている．
-粒子の動きはVerlet法で定めているので，現在の座標(ball\_p)だけを更新しても，それ以降のVerlet法の計算に支障がでてしまう．そのため反射角が合うように過去の座標(pre\_p)の更新も行う．
-
-\begin{figure}[htbp]
- \begin{center}
-  \includegraphics[width=80mm]{../implement/reflect_picture.png}
- \end{center}
- \caption{衝突判定時の座標の変換．}
- \label{fig:reflect}
-\end{figure}
-
-図\ref{fig:reflect}は衝突前後の粒子の座標を表しており，赤い粒子が衝突判定前，緑の粒子が衝突判定後を示しており，黄と青の線はそれぞれの粒子が壁と同じ距離であることを示している．
-このような座標の変換をすることによって自然な衝突を表現できる．
-
-\clearpage
-\section{選択した粒子に力を加える}
-クリックされた粒子にドラッグした方向の力を加えるようにし，ドラッグの距離によって力の大きさを変えるようにする．以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-int click_ball=0;
-
-void mousePressed() {
-  int i;
-  for(i=0; i<n; i++){
-    if(mouseX-10-20<=ball_p[i][0]*50 & mouseX-10+20>= ball_p[i][0]*50 &
-    mouseY-10-20<=ball_p[i][1]*50 & mouseY-10+20>= ball_p[i][1]*50){
-      click_ball = i;
+  float draw_slider(float variable_value){
+    if(draw_flag == true){
+      num_separator =
+       (int)map(variable_value, min, max, number_tickmarks-1,0); 
+      cordinate_y = 
+      position_y + slider_height - 
+      ((float)slider_height / (number_tickmarks-1))*num_separator; 
+      fill(255);
+      noStroke();                                                       
+      rect(position_x, position_y + slider_height, slider_width+50, 30); 
+      stroke(1);
+      rect(position_x, position_y, slider_width, slider_height);
       fill(0);
-      //Ver Processing
-      ellipse(pre_p[i][0]*50,pre_p[i][1]*50,ball_size*100,ball_size*100); 
-      /*Ver JavaScript
-      ellipse(10+pre_p[i][0]*50,10+pre_p[i][1]*50, 
-       ball_size*100,ball_size*100);
-       */
-      mouse_p[0] = mouseX;
-      mouse_p[1] = mouseY;
-      return;
+      rect(position_x, cordinate_y, slider_width, 
+      position_y + slider_height - cordinate_y);
+      if(variable_name == "y = "){text(variable_name +
+      nf(variable_value*point_regulation,1,digit),
+       position_x, position_y + slider_height + 20);
+      }else{
+        text(variable_name + nf(variable_value,1,digit),
+         position_x-20, position_y + slider_height + 20);
+      }
+      if(mousePressed==false) slider_dragged=false;
+      if(mouseX >= position_x & mouseX <= position_x + slider_width 
+      & mouseY<=cordinate_y+10 & mouseY>= cordinate_y-10){
+        if(mousePressed){
+          slider_dragged= true;
+        }
+      }
+
+if(slider_dragged){
+        num_separator+= 
+        (int)((cordinate_y - mouseY)/
+        ((float)slider_height /(number_tickmarks-1))); 
+        num_separator = 
+        constrain(num_separator, 0, number_tickmarks-1); 
+        if(digit == 0){
+          variable_value = 
+          (max-min) - round(map(num_separator, 0, 
+          number_tickmarks-1, min, max)); 
+        }else{
+          variable_value = 
+          (max+min) - 
+          map(num_separator, 0, number_tickmarks-1, min, max);
+        }
+        return variable_value;
+      }else{
+        return variable_value;
+      }
+    }else{
+      return variable_value;
     }
   }
-  click_ball = -1;
-}
-void mouseReleased(){
-  if(click_ball != -1){
-    ball_f[click_ball][0] +=( mouseX - mouse_p[0])*0.0001/(h*h);
-    ball_f[click_ball][1] += (mouseY - mouse_p[1])*0.0001/(h*h);
-  }
 }
 \end{verbatim}}
-\end{screen}
+\end{framed}
 
-\subsection{粒子の選択}
-粒子がクリックされているかの判定を行い，クリックされていた場合，何番目の粒子か確認する必要がある．
-また，選択された粒子がわかりやすいように黒く描画する．
-\begin{screen}
-{\small
-\begin{verbatim}
-void mousePressed() {
-  int i;
-  for(i=0; i<n; i++){
-    if(mouseX-10-20<=ball_p[i][0]*50 & mouseX-10+20>= ball_p[i][0]*50 &
-    mouseY-10-20<=ball_p[i][1]*50 & mouseY-10+20>= ball_p[i][1]*50){
-      click_ball = i;
-      fill(0);
-      //Ver Processing
-      ellipse(pre_p[i][0]*50,pre_p[i][1]*50,ball_size*100,ball_size*100); 
-      /*Ver JavaScript
-      ellipse(10+pre_p[i][0]*50,10+pre_p[i][1]*50, 
-       ball_size*100,ball_size*100);
-       */
-      mouse_p[0] = mouseX;
-      mouse_p[1] = mouseY;
-      return;
-    }
-  }
-  click_ball = -1;
-}
-\end{verbatim}}
-\end{screen}
-マウスボタンが押下された際に，i番目の粒子の上にマウスポインタが重なっているかの判定を行う．これをn個の粒子全てに対して行っていき
-\begin{itemize}
-  \item 重なりを確認した場合
-\end{itemize}
+このプログラムを利用する準備として,擬似ピクセル数を格納する変数point\_regulationをグローバル変数で定義しておく必要がある.
 
+ \subsection{メンバ変数}
+ クラスSliders内の変数を以下に示す.
+ \begin{description}
+ \item[position\_x, potision\_y]\mbox{}\\
+ スライダー左上のx座標,y座標を記録する.
+ \item[slider\_height,slider\_width]\mbox{}\\
+ 縦横の幅を記録する.
+  \item[digit]\mbox{}\\
+  返り値の桁数を記録する.
+   \item[min,max]\mbox{}\\
+   値の最小値,最大値を記録する.
+    \item[number\_tickmarks]\mbox{}\\
+    返す値を何段階で調節できるようにするかを記録する.
+    例えばmin=0,max=10の時,number\_tickmarksを11に設定すると0,1,2...9.10の11段階で値を調節できるスライダーとなる.
+    \item[num\_separator]\mbox{}\\
+    調節する変数の値がスライダーの何段階目の値に位置しているかを記録する.
+        \item[cordinate\_y]\mbox{}\\
+        調節している変数の値に応じたy座標を記録する.
+     \item[variable\_name]\mbox{}\\
+     スライダー下部に表示される,調節する変数名の文字列を記録する.
+          \item[draw\_flag]\mbox{}\\
+     スライダーを画面に表示するかどうかの判定で利用する.
+          \item[slider\_dragged]\mbox{}\\
+     スライダーの掴み判定の判定で利用する.
+      \item[variable\_value(draw\_sliderの引数)]\mbox{}\\
+      調節したい変数を格納している.
+ \end{description}
+ 
+  \subsection{処理の流れ}
 \begin{enumerate}
- \setlength{\leftskip}{1.0cm}
-  \item click\_ballに粒子の番号を格納する．
-  \item その粒子を黒く描画する．
-  \item マウスポインタの座標をmouse\_pに格納する．
-  \item 関数mouse\_Pressedを終了する．
+
+\item 調整する変数の値から,その値が下から何段階目に位置するかを計算する
+\item 段階の番号から,スライダー部分のy座標を計算する.
+\item スライダーを描画する.
+\item スライダーの掴み判定(slider\_drugged)を行う.
+\item 掴み判定がtrueの場合,
+\begin{enumerate}
+\item マウスの移動距離に対応した段階数に値を加える.
+\item 段階数から調節する変数の値を変更し,その値を返す.
+\end{enumerate}
+掴み判定がfalseの場合,
+\begin{enumerate}
+\item 調節する変数の値を変更せずにそのまま返す.
+\end{enumerate}
 \end{enumerate}
 
-\begin{itemize}
-  \item 粒子全てに対して重なりを確認できなかった場合
-\end{itemize}
-
-\begin{itemize}
-   \setlength{\leftskip}{1.0cm}
-  \item click\_ballに-1を格納する．
-\end{itemize}
-この処理によりclick\_ballには選択された粒子の番号か-1が格納されている．また粒子が選択された場合，mouse\_pにはマウスポインタの座標が格納されている．これらの値はマウスが離された際の処理で利用する事になる．またProcessingとJavaScriptでの動作に異なりが生じるため変換を行う際は，プログラム内のコメントアウト部分の書き換えを行う必要がある．
-
-\subsection{ドラッグ後の処理}
-\begin{screen}
-{\small
-\begin{verbatim}
-void mouseReleased(){
-  if(click_ball != -1){
-    ball_f[click_ball][0] +=( mouseX - mouse_p[0])*0.0001/(h*h);
-    ball_f[click_ball][1] += (mouseY - mouse_p[1])*0.0001/(h*h);
-  }
-}
-\end{verbatim}}
-\end{screen}
-マウスボタンが押された際に格納しておいたclick\_ball,mouse\_pを利用する．
-マウスボタンが離された際にclick\_ballが-1以外(粒子が選択されている状態)であれば，ドラッグされた距離に応じてball\_f[click\_ball]に力を加える．このような実装を行う事でマウスボタンを用いて粒子を扱うことが可能になる．
-また，格納する力の値を$h^2$で割っているのは時間刻みhの大きさに合わせて力の大きさを調整する必要があるからである．
-
-\section{キー入力}
-\begin{screen}
-{\small
-\begin{verbatim}
-boolean solid_mode = false;
-boolean force_mode = false;
-
-void keyPressed() {  
-  if (key == 's'||key == 'S') {
-    if(solid_mode) solid_mode = false;
-    else solid_mode = true;
-  }
-      if (key == 'f'||key == 'F') {
-    if(force_mode) force_mode = false;
-    else force_mode = true;
-  }
-  if (key == 'r'||key == 'R') set_particle();
-}
-\end{verbatim}}
-\end{screen}
-boolean変数がキー入力に対してtrue,falseと切り替わり，モード変更が可能になる．今回はSキーで凝固状態(solid\_mode),Fキーで力を視覚化した状態(force\_mode)の切り替えを行う．
-またRキーはリセットに対応していて，粒子の状態を初期化する関数set\_particleを実行する．
-
-\section{凝固状態}
-凝固の現象を擬似的に表すために粒子に常に下向きの力を加え下層部に溜まるようにする．また，枠の下面部に粒子が衝突した際の反発力を減らす処理を行う．
-\begin{itembox}[c]{関数calc\_verlet内　下向きの力を加える処理}
-{\small
-\begin{verbatim}
-if(solid_mode) ball_f[i][1]+= 0.00001/(h*h);
-\end{verbatim}}
-\end{itembox}
-
-\begin{itembox}[c]{関数reflect内　下面部の枠の反発力を減らす処理}
-{\small
-\begin{verbatim}
-else if(ball_p[i][1]>10-ball_size && solid_mode)
- ball_p[i][1]=10-ball_size-0.01;
-\end{verbatim}}
-\end{itembox}
-これらの処理はsolid\_modeがtrueの場合実行される．下面部の反発力を減らす処理では，粒子が下面部を通り越した際に，粒子のy座標に下面部と接触するようなy座標を格納している．これにより衝突後の反発力を減らすことができる．
-この処理は粒子が壁と接触するように座標を決定するため反発力を0にしているように思えるが，継続的に下向きの力が加えられた状態でverlet法での計算が行われるため粒子に多少の上向きの動きが生じるようになる．
-また，これを以下のように書き換えると反発力を0にすることができる．
-\begin{screen}
-{\small
-\begin{verbatim}
-else if(ball_p[i][1]>10-ball_size && solid_mode) {
-  ball_p[i][1]=10-ball_size-0.01; 
-  pre_p[i][1]=10-ball_size-0.01;   
-}
-\end{verbatim}}
-\end{screen}
-反発力を0にしてしまうと粒子が最下層に詰まってしまい粒子間距離が近すぎてしまう．この振る舞いは凝固の表現には不適切である．そのため，反発力を0にせずに少し減らす処理を選択した．
-
-\section{力を視覚化した状態}
-粒子に加わる力を線を用いて表す関数draw\_forceは以下のように実装した．
-\begin{screen}
-{\small
-\begin{verbatim}
-void draw_force(int i){
-  float force_sqrt_x, force_sqrt_y;
-  strokeWeight(3);
-  if(ball_f[i][0]>0) force_sqrt_x = sqrt(abs(ball_f[i][0]));
-  else force_sqrt_x = -sqrt(abs(ball_f[i][0]));
-  if(ball_f[i][1]>0) force_sqrt_y = sqrt(abs(ball_f[i][1]));
-  else force_sqrt_y = -sqrt(abs(ball_f[i][1]));
-  line(ball_p[i][0]*50, ball_p[i][1]*50,
-   ball_p[i][0]*50+force_sqrt_x, ball_p[i][1]*50+force_sqrt_y);
-  strokeWeight(1);
-}
-\end{verbatim}}
-\end{screen}
-粒子iの座標(ball\_p[i][0]*50, ball\_p[i][1]*50)を始点とし，始点+粒子に加わっている力の根号(ball\_p[i][0]*50+force\_sqrt\_x ,ball\_p[i][1]*50+force\_sqrt\_y)まで太めの線(strokeWeight(3))の描画を行う．
-粒子に加わっている力は振れ幅が大きいため根号を用いている．これにより1以下の小さな値の変化が確認しやすくなる．
-粒子に加わる力には負の値も存在するが，根号の計算では負の値を扱うことができない．そのため，粒子に加わる力の絶対値から根号を求め，その値の符号を元の値と同一にする必要がある．
-sqrt(abs(ball\_f[i][0]))はx方向に加わる力の絶対値の根号であり，粒子に加わる力の符号と同じになるようにforce\_sqrt\_xに格納している．
-今回は線の長さに根号を用いているが，値をそのまま利用する方法もある．この方法には力の大きさが長さに比例するという利点があり，以下のように書き換えればよい．
-\begin{screen}
-{\small
-\begin{verbatim}
-line(ball_p[i][0]*50,ball_p[i][1]*50,
- ball_p[i][0]*50+ball_f[i][0],ball_p[i][1]*50+ball_f[i][1]);
-\end{verbatim}}
-\end{screen}
+\section{回折現象の視覚化}
+波の干渉プログラムで作成した平面波の描写をベースとして作成した.
+波源のx座標の間隔は,障害物の間隔に関わらず10ピクセルとしている.実際の物理現象を考えると波源は無限に存在するので波源同士の間隔は存在しないと言えるが,仮に有限であったとしたら波源同士に間隔の差はないと考えたからである.
 
 
 
-\section{スライダー}\label{sec:slider}
-\begin{screen}
-{\small
-\begin{verbatim}
-float slider_value = 1;
-boolean slider_dragged = false;
-
-void slider(int position_x, int position_y, int slider_height,
-  int slider_width, int min, int max, int NumberOfTickMarks){
-  
-  int num_separator =
-    (int)map(slider_value, min, max, 0, NumberOfTickMarks-1);
-  float cordinate_y = position_y + slider_height - 
-    ((float)slider_height / (NumberOfTickMarks-1))*num_separator;
-  fill(255);
-  rect(position_x, position_y, slider_width, slider_height);
-  fill(0);
-  rect(position_x, cordinate_y, slider_width, position_y +
-    slider_height - cordinate_y);
-  
-  text( slider_value, position_x, position_y + slider_height + 20);
-  
-  
-  if(mouseX >= position_x & mouseX <= position_x + slider_width &
-    mouseY<=cordinate_y+10 & mouseY>= cordinate_y-10){
-    if (mousePressed){
-      slider_dragged= true;
-    }
-   }
-  if(mousePressed==false) slider_dragged=false; 
-   
-   if(slider_dragged){
-     num_separator+= (int)((cordinate_y - mouseY)/
-       ((float)slider_height / (NumberOfTickMarks-1)));
-     num_separator = constrain(num_separator, 0, NumberOfTickMarks-1);
-     slider_value=map(num_separator, 0, NumberOfTickMarks-1, min, max);
-   }
-}
-\end{verbatim}}
-\end{screen}
-
-\newpage
-
-このプログラムを利用するためにはスライダーの値を格納する変数slider\_valueとスライダーのクリック判定を行う変数slider\_draggedをグローバル変数で定義する必要がある．
-関数sliderの引数はスライダーの左上の座標を決定するposition\_x,position\_y,縦と横の幅を決定するslider\_height, slider\_width, 
-値の最小値，最大値を決定するmin, max, 区切りの数を決定するNumberOfTickMarksとなり，それらを宣言することでスライダーを利用できる．
-変数num\_separatorにはスライダーの一番下を0番目として区切りが下から何番目なのかを格納している．
-この整数の値を利用することによってマウスをドラッグした際のスライダーの区切りを表現することができる．
-以下にプログラムの処理の流れを記す．
-
-\begin{enumerate}
-  \item スライダーの値(slider\_value)から，区切りが下から何番目か(num\_separator)を計算する．
-  \item 区切りの番号から，スライダー部分のy座標(cordinate\_y)を計算する．
-  \item スライダーを描画する．
-  \item スライダーの掴み判定(slider\_dragged)を行う．
-   \item 掴み判定がtrueの場合
-\end{enumerate}
-
-\begin{enumerate}
-   \setlength{\leftskip}{1.0cm}
-  \item マウスの移動距離に合わせて区切りの番号に値を加える．
-  \item 区切りの番号からスライダーの値を計算し格納する．
-\end{enumerate}
-
-
-\if0
-
-\subsection{粒子の初期状態の設定}
-\subsubsection{粒子の初期状態の設定}
-\begin{screen}
-{\small
-\begin{verbatim}
-
-\end{verbatim}}
-\end{screen}
-\fi
 
 
 
-\end{comment}
+
+
+
+
+
+
+
+
 
