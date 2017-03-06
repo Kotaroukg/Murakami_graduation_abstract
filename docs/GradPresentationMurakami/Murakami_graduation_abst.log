@@ -1,35 +1,35 @@
-This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2017.1.26)  16 FEB 2017 10:36
+This is e-pTeX, Version 3.14159265-p3.7-160201-2.6 (utf8.euc) (TeX Live 2016) (preloaded format=platex 2016.9.5)  18 FEB 2017 03:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **Murakami_graduation_abst.tex
 (./Murakami_graduation_abst.tex
-pLaTeX2e <2016/11/29> (based on LaTeX2e <2017/01/01>)
+pLaTeX2e <2016/05/07> (based on LaTeX2e <2016/03/31>)
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/platex/base/jarticle.cls
-Document Class: jarticle 2016/11/22 v1.7b Standard pLaTeX class
-\c@@paper=\count82
+Document Class: jarticle 2006/06/27 v1.6 Standard pLaTeX class
+\c@@paper=\count81
 (/usr/local/texlive/2016/texmf-dist/tex/platex/base/jsize10.clo
-File: jsize10.clo 2016/11/22 v1.7b Standard pLaTeX file (size option)
+File: jsize10.clo 2006/06/27 v1.6 Standard pLaTeX file (size option)
 )
-\c@part=\count83
-\c@section=\count84
-\c@subsection=\count85
-\c@subsubsection=\count86
-\c@paragraph=\count87
-\c@subparagraph=\count88
-\c@figure=\count89
-\c@table=\count90
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \symmincho=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
-(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 579.
+(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 593.
 \toclineskip=\dimen118
 \@lnumwidth=\dimen119
 \bibindent=\dimen120
-\heisei=\count91
+\heisei=\count90
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -39,27 +39,33 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks15
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
 )
-Package graphics Info: Driver file: dvipdfmx.def on input line 99.
+Package graphics Info: Driver file: dvipdfmx.def on input line 96.
 
-(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-def/dvipdfmx.def
-File: dvipdfmx.def 2016/07/11 v4.12 LaTeX color/graphics driver for dvipdfmx (L
-3/ChoF)
-))
+(/usr/local/texlive/2016/texmf-dist/tex/latex/dvipdfmx-def/dvipdfmx.def
+File: dvipdfmx.def 2016/04/06 v4.08 LaTeX color/graphics driver for dvipdfmx (T
+eX Live/ChoF)
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
 \Gin@req@height=\dimen121
 \Gin@req@width=\dimen122
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen123
 \WF@size=\dimen124
-\c@WF@wrappedlines=\count92
+\c@WF@wrappedlines=\count91
 \WF@box=\box41
 \WF@everypar=\toks16
 Package: wrapfig 2003/01/31  v 3.6
@@ -71,7 +77,7 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/here/here.sty)
 (/usr/local/texlive/2016/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count93
+\c@float@type=\count92
 \float@exts=\toks17
 \float@box=\box42
 \@float@everytoks=\toks18
@@ -85,10 +91,10 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigbottomskip=\skip45
 \subfigcapmargin=\dimen126
 \subfiglabelskip=\skip46
-\c@subfigure=\count94
-\c@lofdepth=\count95
-\c@subtable=\count96
-\c@lotdepth=\count97
+\c@subfigure=\count93
+\c@lofdepth=\count94
+\c@subtable=\count95
+\c@lotdepth=\count96
 
 ****************************************
 * Local config file subfigure.cfg used *
@@ -167,12 +173,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
 ] (./Murakami_graduation_abst.aux) ) 
 Here is how much of TeX's memory you used:
- 1086 strings out of 493683
- 14114 string characters out of 6149653
- 76897 words of memory out of 5000000
- 4672 multiletter control sequences out of 15000+600000
+ 1243 strings out of 493693
+ 16554 string characters out of 6149788
+ 78292 words of memory out of 5000000
+ 4812 multiletter control sequences out of 15000+600000
  13753 words of font info for 54 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 25i,7n,25p,593b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,7n,25p,593b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Murakami_graduation_abst.dvi (1 page, 7832 bytes).
+Output written on Murakami_graduation_abst.dvi (1 page, 7780 bytes).
